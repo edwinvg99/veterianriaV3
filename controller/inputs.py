@@ -4,7 +4,6 @@ from datetime import datetime
 
 
 def ValidarRegistrar_Persona(cedula,nombre,edad,Veterinaria1):
-    print('Ingreso a metodo validar el registrar mascota')
 
     if not cedula.isdigit() or len(cedula) > 10:
         print("Error: La cédula debe ser numérica y tener un máximo de 10 caracteres.")
@@ -62,10 +61,7 @@ def ValidarRegistrar_historia_clinica(id_mascota, fecha, medico, motivo_consulta
         print("Error: El historial de vacunación debe ser solo texto.")
     elif not alergias.isalpha():
         print("Error: Las alergias deben ser solo texto.")
-    elif not detalle_procedimiento.isalpha():
-        print("Error: Los detalles del procedimiento deben ser solo texto.")
-    elif not Veterinaria1.isalpha():
-        print("Error: El nombre de la veterinaria debe ser solo texto.")
+   
     else:
         print("Todas las entradas son válidas.")
         
@@ -84,7 +80,7 @@ def ValidarBuscar_historia_clinica(id_mascota, fecha, Veterinaria1):
                 print("Error: La fecha debe tener el formato AAAA-MM-DD HH:MM.")
 
 
-def ValidarCrear_orden(id_orden, idM, cedula_duenoM, cedula_vete, medicamentoO, dosis_enviada,Veterinaria1):
+def ValidarCrear_orden(id_orden, idM, cedula_duenoM, cedula_vete, medicamentoO, dosis_enviada,estado,Veterinaria1):
     if not id_orden or not idM or not cedula_duenoM or not cedula_vete or not medicamentoO or not dosis_enviada:
         print("Error: Ningún campo debe estar vacío.")
     elif not id_orden.isnumeric() or not idM.isnumeric() or not cedula_duenoM.isnumeric() or not cedula_vete.isnumeric():
@@ -92,7 +88,7 @@ def ValidarCrear_orden(id_orden, idM, cedula_duenoM, cedula_vete, medicamentoO, 
     elif medicamentoO.isnumeric() or dosis_enviada.isnumeric():
         print("Error: Los campos medicamentoO y dosis_enviada deben ser de texto.")
     else:
-        business.crear_orden(id_orden, idM, cedula_duenoM, cedula_vete, medicamentoO, dosis_enviada,Veterinaria1)
+        business.crear_orden(id_orden, idM, cedula_duenoM, cedula_vete, medicamentoO, dosis_enviada,estado,Veterinaria1)
         
 def ValidarBuscar_ordenID(id_orden, Veterinaria1):
     
@@ -103,12 +99,16 @@ def ValidarBuscar_ordenID(id_orden, Veterinaria1):
     else:
         business.buscar_ordenID(id_orden, Veterinaria1)
         
-def ValidarRegistrar_factura_venta(idFactura, id_orden, nombre_medicamento, precio, cantidad_llevar, Veterinaria1):
-    if not idFactura or not id_orden or not nombre_medicamento or not precio or not cantidad_llevar:
+def ValidarRegistrar_factura_venta(idFactura, id_orden, nombre_producto, precio, cantidad_llevar, Veterinaria1):
+    if not idFactura or not id_orden or not nombre_producto or not precio or not cantidad_llevar:
         print("Error: Ningún campo debe estar vacío.")
-    elif not str(idFactura).isnumeric() or not str(id_orden).isnumeric() or not str(precio).isnumeric() or not str(cantidad_llevar).isnumeric():
+        
+    elif not idFactura.isdigit() or not id_orden.isdigit()  or not precio.isdigit()  or not cantidad_llevar.isdigit() :
         print("Error: Los campos idFactura, id_orden, precio, cantidad_llevar deben ser numéricos.")
-    elif nombre_medicamento.isnumeric():
+        
+    elif nombre_producto.isnumeric():
         print("Error: El campo nombre_medicamento debe ser de texto.")
     else:
-        business.registrar_factura_venta(idFactura, id_orden, nombre_medicamento, precio, cantidad_llevar, Veterinaria1)
+        precio=float (precio)
+        cantidad_llevar=int (cantidad_llevar)
+        business.registrar_factura_venta(idFactura, id_orden, nombre_producto, precio, cantidad_llevar, Veterinaria1)

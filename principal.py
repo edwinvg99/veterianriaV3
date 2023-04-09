@@ -5,8 +5,7 @@ from controller import business
 
 
 from datetime import datetime
-from colorama import init
-from colorama import Fore, Back, Style
+
 
 
 
@@ -15,11 +14,11 @@ Veterinaria1=model.Veterinaria()
 def menu(usuario_actual):
     while True:
         print('')
-        print(Fore.GREEN+"-----------------------------------------------")
+        print("-----------------------------------------------")
         print("             Bienvenido a la Veterinaria         ")
-        print(Fore.GREEN+"-----------------------------------------------")
-        print(Fore.LIGHTBLUE_EX+f"     Bienvenido al menú de {usuario_actual.rol}")
-        print(Fore.WHITE+'')
+        print("-----------------------------------------------")
+        print(f"     Bienvenido al menú de {usuario_actual.rol}")
+        print('')
         
         
         
@@ -109,6 +108,7 @@ def menu(usuario_actual):
                 alergias = input("Ingrese las alergias: ")
                 detalle_procedimiento = input("Ingrese el detalle del procedimiento: ")
                 
+                
                 inputs.ValidarRegistrar_historia_clinica(id_mascota, fecha, medico, motivo_consulta, sintomatologia, diagnostico, procedimiento, medicamento, dosis, id_orden, historial_vacunacion, alergias, detalle_procedimiento,Veterinaria1)
 
 
@@ -125,13 +125,15 @@ def menu(usuario_actual):
             cedula_vete = input("Ingrese la cedula del veterinario: ")
             medicamentoO = input("Ingrese el nombre del medicamento: ")
             dosis_enviada = input("Ingrese la dosis recomendada: ")
+            estado="ACTIVO"
             
-            inputs.ValidarCrear_orden(id_orden, idM, cedula_duenoM, cedula_vete, medicamentoO, dosis_enviada,Veterinaria1)
+            inputs.ValidarCrear_orden(id_orden, idM, cedula_duenoM, cedula_vete, medicamentoO, dosis_enviada,estado,Veterinaria1)
 
 
         elif opcion == "4" and usuario_actual.rol == "veterinario":
-            #ANULAR ORDEN
-            pass
+            id_orden=input("Ingrese la orden a anular: ")
+            
+            business.anular_orden(id_orden,Veterinaria1)
         
             
         elif opcion == "5" and (usuario_actual.rol == "Vendedor" or usuario_actual.rol == "veterinario"):
@@ -148,11 +150,11 @@ def menu(usuario_actual):
         #Vender producto (con orden)
             idFactura= input("Ingrese el ID de la facura a crear: ")
             id_orden= input("Ingrese el ID de la orden a comprar: ")
-            nombre_medicamento= input("Ingrese el nombre del medicamento: ")
+            nombre_producto= input("Ingrese el nombre del medicamento: ")
             precio= input("Ingrese el precio unitario del medicamento: ")
             cantidad_llevar= input("Ingrese la cantidad a llevar: ")
             
-            inputs.ValidarRegistrar_factura_venta(idFactura, id_orden, nombre_medicamento, precio, cantidad_llevar, Veterinaria1)
+            inputs.ValidarRegistrar_factura_venta(idFactura, id_orden, nombre_producto, precio, cantidad_llevar, Veterinaria1)
             
 
         elif opcion=="10":

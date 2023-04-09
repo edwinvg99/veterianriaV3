@@ -43,10 +43,11 @@ class HistoriaClinica:
         self.historial_vacunacion = historial_vacunacion
         self.alergias = alergias
         self.detalle_procedimiento = detalle_procedimiento
+       
 
 
 class Orden:
-    def __init__(self, id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicamento, dosis):
+    def __init__(self, id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicamento, dosis,estado):
         self.id_orden = id_orden
         self.id_mascota = id_mascota
         self.cedula_dueno = cedula_dueno
@@ -54,18 +55,18 @@ class Orden:
         self.medicamento = medicamento
         self.dosis = dosis
         self.fecha_generacion = date.today()
+        self.estado=estado
 
         
 class FacturaVenta:
-    def __init__(self, id_factura, nombre_mascota, cedula_dueno, id_orden, nombre_producto, valor, cantidad):
+    def __init__(self, id_factura, id_orden, nombre_producto, valor, cantidad):
         self.id_factura = id_factura
-        self.nombre_mascota = nombre_mascota
-        self.cedula_dueno = cedula_dueno
         self.id_orden = id_orden
         self.nombre_producto = nombre_producto
         self.valor = valor
         self.cantidad = cantidad
         self.fecha =  date.today()
+        self.precio_total = self.valor*self.cantidad
 
 
 

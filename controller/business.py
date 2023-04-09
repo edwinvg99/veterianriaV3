@@ -121,6 +121,7 @@ def buscar_historia_clinica(id_mascota, fecha, Veterinaria1):
         print(f'Historial de vacunación: {historia_clinica.historial_vacunacion}')
         print(f'Alergias: {historia_clinica.alergias}')
         print(f'Detalle del procedimiento: {historia_clinica.detalle_procedimiento}')
+       
     else: 
         print("La historia clinica no existe")
 
@@ -188,14 +189,14 @@ def buscar_mascota_por_id(id,Veterinaria1):
     
 
 
-def crear_orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicamento, dosis, veterinaria1):
+def crear_orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicamento, dosis,estado, veterinaria1):
     
     for Orden in veterinaria1.ordenes:
         if Orden.id_orden == id_orden:
             print("La orden ya existe en el sistema")
             return
         
-    nueva_orden= model.Orden(id_orden, id_mascota, cedula_dueno,cedula_veterinario,medicamento,dosis)
+    nueva_orden= model.Orden(id_orden, id_mascota, cedula_dueno,cedula_veterinario,medicamento,dosis,estado)
     veterinaria1.ordenes.append(nueva_orden)
     print('')
     print("La orden se ha registrado correctamente")
@@ -206,10 +207,11 @@ def crear_orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicame
     buscar_ordenID(id_busqueda_orden,veterinaria1)
     
 def buscar_ordenID(id_orden, Veterinaria1):
+    existe_orden=False
     print('VALIDAR INGRESO AL BUSCAR ORDEN')
     for Orden in Veterinaria1.ordenes:
         if Orden.id_orden == id_orden:
-            
+            existe_orden = True
             print("Datos de la orden" ,Orden.id_orden)
             print("*************************************")
             print("ID mascota: " ,Orden.id_mascota)
@@ -218,13 +220,27 @@ def buscar_ordenID(id_orden, Veterinaria1):
             print("Medicamento recetado", Orden.medicamento)
             print("Dosis enviada: ", Orden.dosis)
             print("Orden generada a la fecha: ", Orden.fecha_generacion)
+            print("Estado: ", Orden.estado)
             print("*****************************************************")
-        else:
-            print("No se encontro una orden con ese ID")
-            return None
+            break
+    if(existe_orden == False):
+        print("No existe una orden registrada con el id ", id_orden)
             
-def anular_orden(self, id_orden, id_mascota, id_dueño, id_veterinario):
-    # Buscar la orden por su ID
+def anular_orden(id_orden, Veterinaria1):
+
+    existe_orden=False
+    print('VALIDAR INGRESO AL BUSCAR ORDEN')
+    for Orden in Veterinaria1.ordenes:
+        if Orden.id_orden == id_orden:
+            existe_orden = True
+            Orden.estado = "ANULADA"
+            buscar_ordenID(id_orden,Veterinaria1)
+            break
+    if(existe_orden == False):
+        print("No existe una orden registrada con el id ", id_orden)
+    
+    
+    """ # Buscar la orden por su ID
         for orden in self.lista_ordenes:
             if orden.id_orden == id_orden and orden.id_mascota == id_mascota \
                     and orden.id_dueño == id_dueño and orden.id_veterinario == id_veterinario:
@@ -258,33 +274,80 @@ def anular_orden(self, id_orden, id_mascota, id_dueño, id_veterinario):
                         historia[registro["fecha"]] = registro
                 print("La orden ha sido anulada con éxito.")
                 return
-        print("No se encontró la orden con los datos proporcionados.")
+        print("No se encontró la orden con los datos proporcionados.")"""
 
-
-
+""""
 
 
 def registrar_factura_venta(id_factura,id_orden, nombre_producto, valor, cantidad, Veterinaria1):
   #  orden_objeto=model.Orden()
-    
+        print("Ingrese los siguientes datos de la factura:")
+
     #for FacturaVenta in Veterinaria1.ordenes:
+    
         if id_orden in [Orden.id_orden for Orden in Veterinaria1.ordenes]:
-            factura_nueva= model.FacturaVenta(id_factura,id_orden, nombre_producto,valor,cantidad)
-            Veterinaria1.facturas_ventas.append(factura_nueva)
+            factura_nueva= model.FacturaVenta
             
+            (id_factura,id_orden, nombre_producto,valor,cantidad)
+            #(self, id_factura, nombre_mascota, cedula_dueno, id_orden, nombre_producto, valor, cantidad)
+            
+            factura_nueva.precio_total = valor * cantidad  # Agregar campo de precio total
+
+            Veterinaria1.facturas_ventas.append(factura_nueva)
+            print(f'Valor total a pagar: {factura_nueva.precio_total}')
             print("Se ha registrado  la factura")
             
             id_busqueda_factura= id_orden
     
             buscar_ordenID(id_busqueda_factura,Veterinaria1)
         else:
-               
-         print("la orden no existe en el sistema")
+            print("la orden no existe en el sistema")
+"""
+
+
+def registrar_factura_venta(id_factura, id_orden, nombre_producto, valor, cantidad, Veterinaria1):
+    # Pedir datos de la factura y la orden
+    print("Ingreso a registrar factura venda VALIDACION")
+    # Aquí podrías agregar más input() para pedir información adicional, como el nombre del cliente, por ejemplo.
+
+    # Buscar la orden correspondiente al ID ingresado
+    existe_orden = False
+    for Orden in Veterinaria1.ordenes:
+        if Orden.id_orden == id_orden:
+            existe_orden = True
+            # Validar el estado de la orden
+            if Orden.estado == "ANULADA":
+                print('VALIDAR INGRESO A ANULADO')
+                print("No se puede vender con una orden anulada.")
+            elif Orden.estado == "ACTIVO":
+                print('VALIDAR INGRESO A ACTIVO')
+
+                # Crear la factura nueva
+                factura_nueva = model.FacturaVenta(id_factura, id_orden, nombre_producto, valor, cantidad)
+                factura_nueva.precio_total = valor * cantidad  # Agregar campo de precio total
+
+                # Agregar la factura nueva a la lista de facturas de la veterinaria
+                Veterinaria1.facturas_ventas.append(factura_nueva)
+                print(f'Valor total a pagar: {factura_nueva.precio_total}')
+                print("Se ha registrado la factura")
+
+                # Mostrar los datos de la orden
+                id_busqueda_factura = id_orden
+                buscar_ordenID(id_busqueda_factura, Veterinaria1)
+
+            break
+
+    if not existe_orden:
+        print("No existe una orden registrada con el id ", id_orden)
+
+
+
+
 
 def consultar_facturas_ventas(id_orden, veterinaria1):
     for FacturaVenta in veterinaria1.facturas_ventas:
         if FacturaVenta.id_orden == id_orden:
-            print("******************************************")
+            print("*****************************************************")
             print("Datos de la factura" , FacturaVenta.id_factura)
             print("*************************************")
             print("orden asociada NO. : " ,FacturaVenta.id_orden)
