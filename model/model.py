@@ -43,7 +43,7 @@ class HistoriaClinica:
         self.historial_vacunacion = historial_vacunacion
         self.alergias = alergias
         self.detalle_procedimiento = detalle_procedimiento
-       
+
 
 
 class Orden:
