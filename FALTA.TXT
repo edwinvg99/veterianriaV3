@@ -1,4 +1,6 @@
+
+que se cree una orden solo si existe en historia clinica
+
 Todas las validaciones
 mejorar validaciones de imputs (Individuales)
-que se cree una orden solo si existe en historia clinica
-Calcular valor final de factura en vender medicamento con  orden
+Calcular valor final de factura en vender medicamento con  orden ****LISTO****
