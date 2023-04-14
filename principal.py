@@ -2,13 +2,7 @@
 from model import model
 from controller import inputs
 from controller import business
-
-
-
 from datetime import datetime
-
-
-
 
 Veterinaria1=model.Veterinaria()
 
@@ -180,7 +174,6 @@ def menu(usuario_actual):
         else:
             print("Opción no válida, intente de nuevo.")
         print()
-
 
 def validar_Sesion():
     usuario_valido = False

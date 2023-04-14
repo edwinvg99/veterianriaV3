@@ -5,17 +5,16 @@ from datetime import datetime
 
 
 def iniciar_sesion(username, password,Veterinaria1):
+    
 
     for Usuarios in Veterinaria1.Usuarios:
             if Usuarios.username == username and Usuarios.password == password:
                 Veterinaria1.usuario_actual= Usuarios.rol
                 return Usuarios
     return False
-
-
 def cerrar_sesion():
         usuario_actual = None
-        
+
 
 def registrar_usuario(username, password, rol,Veterinaria1):
     if rol=='Vendedor':
@@ -30,7 +29,6 @@ def registrar_usuario(username, password, rol,Veterinaria1):
         #Se uso un menu pensando en que el usuario no se vaya a equivocar ingresando el ROL de la persona por lo cual este else no sera muy util 
         print('Por favor intentalo de nuevo')
         exit()   
-    
 def registrar_Persona(cedula, nombre, edad, Veterinaria1):
     for persona in Veterinaria1.personas:
         if persona.cedula == cedula:
@@ -61,20 +59,12 @@ def registrar_Persona(cedula, nombre, edad, Veterinaria1):
         print('')
         exit()
 
-   
-    
     if opcion=='1' or opcion=='2':
         registrar_usuario(input('Ingrese el usuario: '),input('Ingrese la contraseña: '),rolP,Veterinaria1)
         print("")
     else:
         print('')
         print('Gracias por confiar en nosotros')
-
-
-
-
-
-
 
 
 def registrar_historia_clinica(id_mascota, fecha, medico, motivo_consulta, sintomatologia, diagnostico, procedimiento, medicamento, dosis, id_orden, historial_vacunacion, alergias, detalle_procedimiento, Veterinaria1):
@@ -102,32 +92,6 @@ def registrar_historia_clinica(id_mascota, fecha, medico, motivo_consulta, sinto
     print('')
     print('Historia registrada con exito')
     print(fecha)
-
-
-
-
-"""def buscar_historia_clinica(id_mascota, fecha, Veterinaria1):
-
-    print(' ')
-    if id_mascota in [mascota.id for mascota in Veterinaria1.mascotas] and fecha in Veterinaria1.historiasClinicas[id_mascota]:
-        historia_clinica = Veterinaria1.historiasClinicas[id_mascota][fecha]
-        print(f'Historia clínica de la mascota con id {id_mascota} registrada en la fecha {fecha}:')
-        print(f'Motivo de consulta: {historia_clinica.motivo_consulta}')
-        print(f'Sintomatología: {historia_clinica.sintomatologia}')
-        print(f'Diagnóstico: {historia_clinica.diagnostico}')
-        print(f'Procedimiento: {historia_clinica.procedimiento}')
-        print(f'Medicamento: {historia_clinica.medicamento}')
-        print(f'Dosis: {historia_clinica.dosis}')
-        print(f'ID de orden: {historia_clinica.id_orden}')
-        print(f'Historial de vacunación: {historia_clinica.historial_vacunacion}')
-        print(f'Alergias: {historia_clinica.alergias}')
-        print(f'Detalle del procedimiento: {historia_clinica.detalle_procedimiento}')
-
-    else: 
-        print("La historia clinica no existe")
-        """
-
-
 def buscar_historia_clinica(id_mascota, fecha, Veterinaria1):
 
     print(' ')
@@ -148,14 +112,12 @@ def buscar_historia_clinica(id_mascota, fecha, Veterinaria1):
     else: 
         print("La historia clinica no existe")
 
-
-def buscar_historia_clinica2(id_mascota, veterinaria):
+# def buscar_historia_clinica2(id_mascota, veterinaria):
     if id_mascota in veterinaria.historiasClinicas:
         return veterinaria.historiasClinicas[id_mascota]
     else:
         print('No existe historia clínica para la mascota')
         return None
-
 
 
 def registrar_mascota(id, nombre, cedula_dueno, edad, especie, raza, caracteristicas, peso,
@@ -184,8 +146,6 @@ Veterinaria1):
     print('____________________________________________')
     print(f"La mascota {nombre} se registró con éxito.")
     print('')
-    
-
 def buscar_mascota_por_id(id,Veterinaria1):
         # Buscar la mascota por ID en la lista de mascotas existentes
         print(' ')
@@ -207,7 +167,7 @@ def buscar_mascota_por_id(id,Veterinaria1):
         # Si no se encuentra la mascota, imprimir un mensaje y devolver None
         print("No se encontró ninguna mascota con el ID proporcionado.")
         return None
-    
+
 
 """def crear_orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicamento, dosis,estado, veterinaria1):
     
@@ -268,8 +228,6 @@ def crear_orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicame
     
     id_busqueda_orden = id_orden
     buscar_ordenID(id_busqueda_orden, veterinaria1)
-
-
 def buscar_ordenID(id_orden, Veterinaria1):
     existe_orden=False
     print('VALIDAR INGRESO AL BUSCAR ORDEN')
@@ -289,7 +247,6 @@ def buscar_ordenID(id_orden, Veterinaria1):
             break
     if(existe_orden == False):
         print("No existe una orden registrada con el id ", id_orden)
-            
 def anular_orden(id_orden, Veterinaria1):
 
     existe_orden=False
@@ -340,34 +297,6 @@ def anular_orden(id_orden, Veterinaria1):
                 return
         print("No se encontró la orden con los datos proporcionados.")"""
 
-""""
-
-
-def registrar_factura_venta(id_factura,id_orden, nombre_producto, valor, cantidad, Veterinaria1):
-  #  orden_objeto=model.Orden()
-        print("Ingrese los siguientes datos de la factura:")
-
-    #for FacturaVenta in Veterinaria1.ordenes:
-    
-        if id_orden in [Orden.id_orden for Orden in Veterinaria1.ordenes]:
-            factura_nueva= model.FacturaVenta
-            
-            (id_factura,id_orden, nombre_producto,valor,cantidad)
-            #(self, id_factura, nombre_mascota, cedula_dueno, id_orden, nombre_producto, valor, cantidad)
-            
-            factura_nueva.precio_total = valor * cantidad  # Agregar campo de precio total
-
-            Veterinaria1.facturas_ventas.append(factura_nueva)
-            print(f'Valor total a pagar: {factura_nueva.precio_total}')
-            print("Se ha registrado  la factura")
-            
-            id_busqueda_factura= id_orden
-    
-            buscar_ordenID(id_busqueda_factura,Veterinaria1)
-        else:
-            print("la orden no existe en el sistema")
-"""
-
 
 def registrar_factura_venta(id_factura, id_orden, nombre_producto, valor, cantidad, Veterinaria1):
     # Pedir datos de la factura y la orden
@@ -403,11 +332,6 @@ def registrar_factura_venta(id_factura, id_orden, nombre_producto, valor, cantid
 
     if not existe_orden:
         print("No existe una orden registrada con el id ", id_orden)
-
-
-
-
-
 def consultar_facturas_ventas(id_orden, veterinaria1):
     for FacturaVenta in veterinaria1.facturas_ventas:
         if FacturaVenta.id_orden == id_orden:
@@ -420,5 +344,3 @@ def consultar_facturas_ventas(id_orden, veterinaria1):
             print("Cantidad a llevar", FacturaVenta.cantidad)
             
             print("*****************************************************")
-
-

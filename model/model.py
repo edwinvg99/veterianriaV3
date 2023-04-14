@@ -1,8 +1,5 @@
 from datetime import date
 
-
-
-
 class Persona:
     def __init__(self, cedula, nombre, edad):
         self.cedula = cedula
@@ -19,14 +16,12 @@ class Mascota:
         self.raza = raza
         self.caracteristicas = caracteristicas
         self.peso = peso
-    
 
 class usuario:
     def __init__(self, username, password,rol):
         self.username = username
         self.password = password
         self.rol = rol
-        
 
 class HistoriaClinica:
     def __init__(self,id_mascota, fecha, medico, motivo_consulta, sintomatologia, diagnostico, procedimiento, medicamento, dosis, id_orden, historial_vacunacion, alergias, detalle_procedimiento):
@@ -44,8 +39,6 @@ class HistoriaClinica:
         self.alergias = alergias
         self.detalle_procedimiento = detalle_procedimiento
 
-
-
 class Orden:
     def __init__(self, id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicamento, dosis,estado):
         self.id_orden = id_orden
@@ -57,7 +50,6 @@ class Orden:
         self.fecha_generacion = date.today()
         self.estado=estado
 
-        
 class FacturaVenta:
     def __init__(self, id_factura, id_orden, nombre_producto, valor, cantidad):
         self.id_factura = id_factura
@@ -67,8 +59,6 @@ class FacturaVenta:
         self.cantidad = cantidad
         self.fecha =  date.today()
         self.precio_total = self.valor*self.cantidad
-
-
 
 class Veterinaria:
     def __init__(self):
