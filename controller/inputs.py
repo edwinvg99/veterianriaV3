@@ -27,16 +27,12 @@ def ValidarRegistrar_mascota(id, nombre, cedula_dueno, edad, especie, raza, cara
         print("Todos los campos son obligatorios")
         return
     
-    if not (cedula_dueno.isnumeric() and edad.isnumeric() and peso.endswith('kg')):
-        print("Cedula del dueño, edad y peso deben ser numéricos y el peso debe terminar en 'kg'")
+    if not (cedula_dueno.isnumeric() and edad.isnumeric() ):
+        print("Cedula del dueño, edad y peso deben ser numéricos")
         return
-    if len(edad) != 2:
-        print("La edad debe tener dos dígitos")
-    return
+    else:
 
-    return True
-
-    business.registrar_mascota(id, nombre, cedula_dueno, edad, especie, raza, caracteristicas, peso,Veterinaria1)
+        business.registrar_mascota(id, nombre, cedula_dueno, edad, especie, raza, caracteristicas, peso,Veterinaria1)
 
 
 def ValidarRegistrar_historia_clinica(id_mascota, fecha, medico, motivo_consulta, sintomatologia, diagnostico, procedimiento, medicamento, dosis, id_orden, historial_vacunacion, alergias, detalle_procedimiento,Veterinaria1):
@@ -62,7 +58,7 @@ def ValidarRegistrar_historia_clinica(id_mascota, fecha, medico, motivo_consulta
         print("Error: El historial de vacunación debe ser solo texto.")
     elif not alergias.isalpha():
         print("Error: Las alergias deben ser solo texto.")
-   
+
     else:
         print("Todas las entradas son válidas.")
         
@@ -79,18 +75,28 @@ def ValidarBuscar_historia_clinica(id_mascota, fecha, Veterinaria1):
                 business.buscar_historia_clinica(id_mascota, fecha, Veterinaria1)
             except ValueError:
                 print("Error: La fecha debe tener el formato AAAA-MM-DD HH:MM.")
-
+    
 
 def ValidarCrear_orden(id_orden, idM, cedula_duenoM, cedula_vete, medicamentoO, dosis_enviada,estado,Veterinaria1):
     if not id_orden or not idM or not cedula_duenoM or not cedula_vete or not medicamentoO or not dosis_enviada:
         print("Error: Ningún campo debe estar vacío.")
-    elif not id_orden.isnumeric() or not idM.isnumeric() or not cedula_duenoM.isnumeric() or not cedula_vete.isnumeric():
-        print("Error: Los campos id_orden, idM, cedula_duenoM y cedula_vete deben ser numéricos.")
-    elif medicamentoO.isnumeric() or dosis_enviada.isnumeric():
-        print("Error: Los campos medicamentoO y dosis_enviada deben ser de texto.")
+        
+    elif not id_orden.isnumeric():
+        print("Error: El campo id orden debe ser numerico.")
+    elif not idM.isnumeric() :
+        print("Error: El id de la mascorta debe ser numerico")
+    elif not cedula_duenoM.isnumeric():
+        print("Error: La cedula del dueño debe ser numerica")
+    elif not cedula_vete.isnumeric():
+        print("Error: La cedula del veterinario debe ser numerica")
+    elif not dosis_enviada.isnumeric():
+        print("Error: El campo dosis recomendada debe ser numerica")
+    elif medicamentoO.isnumeric() :
+        print("Error: El medicamento es de tipo texto")
     else:
         business.crear_orden(id_orden, idM, cedula_duenoM, cedula_vete, medicamentoO, dosis_enviada,estado,Veterinaria1)
         
+
 def ValidarBuscar_ordenID(id_orden, Veterinaria1):
     
     if not id_orden:

@@ -93,6 +93,9 @@ class Veterinaria:
         persona_dueño= Persona("100", "andrea", "45")
         self.personas.append(persona_dueño)
         
-        mascota_nueva=Mascota('200','perla',100,10,'perro','doberman','negro','15kl')
+        mascota_nueva=Mascota('200','perla',100,10,'perro','doberman','negro','15')
+        self.mascotas.append(mascota_nueva)
+        
+        mascota_nueva=Mascota('201','pepe',100,10,'gato','peludo','blanco','8')
         self.mascotas.append(mascota_nueva)
 

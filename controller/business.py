@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 
+
 def iniciar_sesion(username, password,Veterinaria1):
 
     for Usuarios in Veterinaria1.Usuarios:
@@ -105,6 +106,28 @@ def registrar_historia_clinica(id_mascota, fecha, medico, motivo_consulta, sinto
 
 
 
+"""def buscar_historia_clinica(id_mascota, fecha, Veterinaria1):
+
+    print(' ')
+    if id_mascota in [mascota.id for mascota in Veterinaria1.mascotas] and fecha in Veterinaria1.historiasClinicas[id_mascota]:
+        historia_clinica = Veterinaria1.historiasClinicas[id_mascota][fecha]
+        print(f'Historia clínica de la mascota con id {id_mascota} registrada en la fecha {fecha}:')
+        print(f'Motivo de consulta: {historia_clinica.motivo_consulta}')
+        print(f'Sintomatología: {historia_clinica.sintomatologia}')
+        print(f'Diagnóstico: {historia_clinica.diagnostico}')
+        print(f'Procedimiento: {historia_clinica.procedimiento}')
+        print(f'Medicamento: {historia_clinica.medicamento}')
+        print(f'Dosis: {historia_clinica.dosis}')
+        print(f'ID de orden: {historia_clinica.id_orden}')
+        print(f'Historial de vacunación: {historia_clinica.historial_vacunacion}')
+        print(f'Alergias: {historia_clinica.alergias}')
+        print(f'Detalle del procedimiento: {historia_clinica.detalle_procedimiento}')
+
+    else: 
+        print("La historia clinica no existe")
+        """
+
+
 def buscar_historia_clinica(id_mascota, fecha, Veterinaria1):
 
     print(' ')
@@ -121,11 +144,17 @@ def buscar_historia_clinica(id_mascota, fecha, Veterinaria1):
         print(f'Historial de vacunación: {historia_clinica.historial_vacunacion}')
         print(f'Alergias: {historia_clinica.alergias}')
         print(f'Detalle del procedimiento: {historia_clinica.detalle_procedimiento}')
-       
+
     else: 
         print("La historia clinica no existe")
 
 
+def buscar_historia_clinica2(id_mascota, veterinaria):
+    if id_mascota in veterinaria.historiasClinicas:
+        return veterinaria.historiasClinicas[id_mascota]
+    else:
+        print('No existe historia clínica para la mascota')
+        return None
 
 
 
@@ -197,10 +226,10 @@ def buscar_mascota_por_id(id,Veterinaria1):
     
     buscar_ordenID(id_busqueda_orden,veterinaria1)"""
 
-def crear_orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicamento, dosis, estado, veterinaria):
+def crear_orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicamento, dosis, estado, veterinaria1):
     # Verificar si la mascota existe
     mascota_existente = False
-    for mascota in veterinaria.mascotas:
+    for mascota in veterinaria1.mascotas:
         if mascota.id == id_mascota:
             mascota_existente = True
             break
@@ -210,14 +239,14 @@ def crear_orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicame
         return
 
     # Verificar si existe una historia clínica para la mascota
-    historia_existente = id_mascota in veterinaria.historiasClinicas
+    historia_existente = id_mascota in veterinaria1.historiasClinicas
     if not historia_existente:
         print('No existe historia clínica para la mascota')
         return
 
     # Verificar si la orden ya ha sido registrada
     orden_existente = False
-    for orden in veterinaria.ordenes:
+    for orden in veterinaria1.ordenes:
         if orden.id_orden == id_orden:
             orden_existente = True
             break
@@ -226,19 +255,19 @@ def crear_orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicame
         print('La orden ya existe en el sistema')
         return
     
-    # Verificar si la orden pertenece a una historia clínica existente
-    historia_mascota = veterinaria.historiasClinicas[id_mascota]
-    if id_orden not in historia_mascota:
-        print('La orden no pertenece a una historia clínica existente')
-        return
-
-    # Crear la orden y agregarla a la lista de órdenes de la Veterinaria
-    nueva_orden = model.Orden(id_orden, id_mascota, cedula_dueno, cedula_veterinario, medicamento, dosis, estado)
-    veterinaria.ordenes.append(nueva_orden)
-
-    print('La orden se ha registrado correctamente')
-
-
+    """  for historia in veterinaria1.historiasClinicas.values():
+        if historia.id_orden == id_orden:
+            print("La orden ya existe en la historia clínica.")
+            return"""
+    
+    nueva_orden= model.Orden(id_orden, id_mascota, cedula_dueno,cedula_veterinario,medicamento,dosis,estado)
+    veterinaria1.ordenes.append(nueva_orden)
+    print('')
+    print("La orden se ha registrado correctamente")
+    print('')
+    
+    id_busqueda_orden = id_orden
+    buscar_ordenID(id_busqueda_orden, veterinaria1)
 
 
 def buscar_ordenID(id_orden, Veterinaria1):
