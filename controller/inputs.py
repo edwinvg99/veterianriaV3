@@ -6,13 +6,13 @@ from datetime import datetime
 #VALIDACIONES COMPLETAS PARA REGISTRAR PERSONA
 def ValidarRegistrar_Persona(cedula,nombre,edad,Veterinaria1):
 
-    if not cedula.isdigit() or len(cedula) > 10 or cedula < 0:
+    if not cedula.isdigit() or len(cedula) > 10 or int(cedula)<0:
         print("Error: La cédula debe ser numérica y tener un máximo de 10 caracteres y no puede ser negativa.")
         return
     if not nombre.isalpha():
         print("Error: El nombre solo puede contener letras.")
         return
-    if not edad.isdigit() or len(edad) > 3 or edad < 0:
+    if not edad.isdigit() or len(edad) > 3 or int (edad) < 0:
         print("Error: La edad debe ser numérica,positiva y tener un máximo de 3 caracteres.")
         return
     if len(cedula) == 0 or len(nombre) == 0 or len(edad) == 0:
