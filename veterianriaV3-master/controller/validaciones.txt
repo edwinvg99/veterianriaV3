@@ -1,0 +1,7 @@
+ValidarRegistrar_Persona
+ValidarRegistrar_mascota
+ValidarRegistrar_historia_clinica
+ValidarBuscar_historia_clinica
+ValidarCrear_orden
+ValidarBuscar_ordenID
+ValidarRegistrar_factura_venta

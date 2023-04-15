@@ -1,0 +1,6 @@
+
+que se cree una orden solo si existe en historia clinica ****LISTO****
+
+Todas las validaciones
+mejorar validaciones de imputs (Individuales) ****LISTO****
+Calcular valor final de factura en vender medicamento con  orden ****LISTO****
